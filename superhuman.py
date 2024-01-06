@@ -36,24 +36,44 @@ def create_user():
     users[uuid4()] = json_body
     return { 'message' : f'{json_body["username"]} created' }, 201
 
-@app.put('/user')
-def update_user():
-    return
+@app.put('/user/<user_id>')
+def update_user(user_id):
+    try:
+        user = users[user_id]
+        user_data = request.get_json()
+        user |= user_data
+        return { 'message': f'{user["username"]} Updated'}, 202
+    except KeyError:
+        return {'message': "Invalid user"}, 400
+    
 
-@app.delete('user')
-def delete_user():
-    pass
+@app.delete('/user/<user_id>')
+def delete_user(user_id):
+    # user_data = request.get_json()
+    # username = user_data['username']
+    try: 
+        del users[user_id]
+        return {' message': f'User Deleted'}, 202
+    except:
+        return {'message': "Invalid Username"}, 400
+ 
 
 
 # character routes
 
 @app.get('/characters')
 def add_character():
-    return
+    return{'characters': list(characters.values())}
 
 @app.post('/characters')
 def create_character():
-    return
+    character_data = request.get_json()
+    characters[uuid4] = character_data
+    user_id = character_data['user_id']
+    if user_id in users:
+        characters[uuid4()] = character_data
+        return { 'message': "Character created" }, 201
+    return { 'message': "Invalid user"}, 401
 
 @app.put('/characters')
 def update_character():
