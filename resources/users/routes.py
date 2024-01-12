@@ -3,6 +3,8 @@ from flask import request
 
 from . import bp
 from db import users
+
+from schemas import usersSchema
 # user routes
 
 
@@ -11,6 +13,7 @@ def user():
     return {'users': list(users.values())}, 200
 
 @bp.get('/user/<user_id>')
+@bp.response(201, usersSchema, many= True)
 def get_user(user_id):
     try:
         return { 'user': users[user_id]}
@@ -18,13 +21,12 @@ def get_user(user_id):
         return {'message': "Invalid user"}, 400
 
 @bp.post('/user')
-def create_user():
-    user_data = request.get_json()
-    for k in ['username', 'email', 'password']:
-        if k not in user_data:
-            return {'message': "Please include username email and password"}, 400
+@bp.arguments(usersSchema)
+def create_user(user_data):
     users[uuid4()] = user_data
     return { 'message' : f'{user_data["username"]} created' }, 201
+    
+   
 
 @bp.put('/user/<user_id>')
 def update_user(user_id):

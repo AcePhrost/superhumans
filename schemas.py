@@ -1,14 +1,14 @@
 from marshmallow import Schema, fields
 
-class users(Schema):
+class usersSchema(Schema):
     id = fields.Str(dump_only = True)
     email = fields.Str(required = True)
     username = fields.Str(required = True)
     password = fields.Str(required = True, load_only = True)
-    first_name = fields.str()
+    first_name = fields.Str()
     last_name = fields.Str()
 
-class characters(Schema):
-    id = fields.str(dump_only = True)
-    attributes = fields.str(required = True)
-    disadvantages = fields.str(required = True)
+class charactersSchema(Schema):
+    id = fields.Str(dump_only = True)
+    attributes = fields.Str(required = True)
+    disadvantages = fields.Str(required = True)
