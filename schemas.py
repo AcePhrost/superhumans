@@ -12,3 +12,4 @@ class charactersSchema(Schema):
     id = fields.Str(dump_only = True)
     attributes = fields.Str(required = True)
     disadvantages = fields.Str(required = True)
+    user_id = fields.Str(required = True)
