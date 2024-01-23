@@ -4,9 +4,9 @@ from app import db
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
-teams = db.Table( 'teams',
-  db.Column('team_id', db.Integer, db.ForeignKey('users.id')),
-  db.Column('team_id', db.Integer, db.ForeignKey('users.id'))  
+followers = db.Table( 'followers',
+  db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+  db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))  
 )
 
 class UserModel(db.Model):
