@@ -12,7 +12,7 @@ api = Api(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from models.users_model import User_Model
+from models.users_model import UserModel
 from models.charactersModel import characterModels
 
 from resources.users import bp as user_bp
